@@ -1,7 +1,9 @@
-var MrHop = MrHop || {};
+
+
+var CloneRunner = CloneRunner || {};
 
 //setting game configuration and loading the assets for the loading screen
-MrHop.BootState = {
+CloneRunner.BootState = {
   init: function() {
     //loading screen will have a white background
     this.game.stage.backgroundColor = '#fff';  

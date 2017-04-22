@@ -2,7 +2,7 @@
 
 var CloneRunner = CloneRunner || {};
 
-CloneRunner.game = new Phaser.Game(480, 320, Phaser.CANVAS);
+CloneRunner.game = new Phaser.Game(900, 600, Phaser.CANVAS);
 
 CloneRunner.game.state.add('Boot', CloneRunner.BootState);
 CloneRunner.game.state.add('Preload', CloneRunner.PreloadState);

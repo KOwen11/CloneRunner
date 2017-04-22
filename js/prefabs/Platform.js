@@ -2,16 +2,16 @@
 
 var CloneRunner = CloneRunner || {};
 
-CloneRunner.Platform = function(game, floorPool, numTiles, x, y){
+CloneRunner.Platform = function(game, floorPool, numTiles, x, y, speed){
   Phaser.Group.call(this, game);
   
-  this.game.tileSize = 40;
+  this.tileSize = 40;
   this.game = game;
   this.enableBody = true;
   this.floorPool = floorPool; 
-
   
-  this.prepare(numTiles, x, y);
+  
+  this.prepare(numTiles, x, y, speed);
 
   
 };
@@ -19,10 +19,13 @@ CloneRunner.Platform = function(game, floorPool, numTiles, x, y){
 CloneRunner.Platform.prototype = Object.create(Phaser.Group.prototype);
 CloneRunner.Platform.prototype.constructor = CloneRunner.Platform;
 
-CloneRunner.Platform.prototype.prepare = function(numTiles, x, y){
+CloneRunner.Platform.prototype.prepare = function(numTiles, x, y, speed){
+  
+  this.alive = true;
+  
   var i = 0;
   while(i < numTiles){
-    
+    console.log('tile');
     var floorTile = this.floorPool.getFirstExists(false);
     
     if(!floorTile){
@@ -40,6 +43,7 @@ CloneRunner.Platform.prototype.prepare = function(numTiles, x, y){
   //physics properties
   this.setAll('body.immovable', true);
   this.setAll('body.allowGravity', false);
+  this.setAll('body.velocity.x', speed);
   
   
 };

@@ -8,6 +8,8 @@ CloneRunner.BootState = {
     //loading screen will have a white background
     this.game.stage.backgroundColor = '#fff';  
     
+    
+    
     //scaling options
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     
@@ -24,5 +26,7 @@ CloneRunner.BootState = {
   },
   create: function() {
     this.state.start('Preload');
-  }
+  },
+  
+
 };

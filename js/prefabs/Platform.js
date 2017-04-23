@@ -60,13 +60,15 @@ MrHop.Platform.prototype.kill = function(){
 };
 
 MrHop.Platform.prototype.addCoins = function(speed){
-  var coinsY = 90;
+  var coinsY = 110;
   
   var hasCoin;
   this.forEach(function(tile){
-    //40% chance
-    hasCoin = Math.random() <= 0.33;
-    
+    if(speed == 0){
+      hasCoin = Math.random() <= 0.66;
+    }else{
+      hasCoin = Math.random() <= 0.33
+    }
     if(hasCoin) {
       var coin = this.coinsPool.getFirstExists(false);
       

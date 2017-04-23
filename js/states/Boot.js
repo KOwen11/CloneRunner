@@ -2,8 +2,12 @@ var MrHop = MrHop || {};
 
 //setting game configuration and loading the assets for the loading screen
 MrHop.BootState = {
-  init: function() {
+  preload: function() {
     //loading screen will have a white background
+    this.load.image('preloadbar', 'assets/images/preloader-bar.png');
+    this.load.image('background', 'assets/images/background.png');
+
+    console.log('boot start');
     this.game.stage.backgroundColor = '#fff';  
     
     //scaling options
@@ -14,13 +18,13 @@ MrHop.BootState = {
     this.scale.pageAlignVertically = true;
 
     //physics system
-    this.game.physics.startSystem(Phaser.Physics.ARCADE);    
-  },
-  preload: function() {
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);   
+    
     //assets we'll use in the loading screen
-    this.load.image('preloadbar', 'assets/images/preloader-bar.png');
+    
   },
-  create: function() {
+  create: function(){
     this.state.start('Preload');
+    console.log('boot exit');
   }
 };

@@ -14,12 +14,13 @@ MrHop.GameState = {
     this.coinsPool = this.add.group();
     this.coinsPool.enableBody = true;
     
+    
     //gravity
-    this.game.physics.arcade.gravity.y = 6000;    
+    this.game.physics.arcade.gravity.y = 4000;    
     
     //max jump distance
     this.maxJumpDistance = 100;
-    this.jumpSpeed = 1000;
+    this.jumpSpeed = 800;
     //move player with up key
     this.cursors = this.game.input.keyboard.createCursorKeys();
     this.spaceBar = this.game.input.keyboard.addKey([Phaser.Keyboard.SPACEBAR]);
@@ -29,7 +30,7 @@ MrHop.GameState = {
     this.myCoins = 0;
     
     //speed level
-    this.levelSpeed = 400;
+    this.levelSpeed = 300;
   },
   create: function() {
     //create the player
@@ -37,7 +38,7 @@ MrHop.GameState = {
     this.player.anchor.setTo(0.5);
     this.player.animations.add('running', [0, 1, 2, 3, 2, 1], 15, true);
     this.game.physics.arcade.enable(this.player);
-    
+    //this.gameTimer = this.game.time.events.loop(Phaser.Timer.SECOND * 1, this.increaseSpeed, this);
     //change player bounding box
     this.player.body.setSize(38, 60, 0, 0);
     this.player.play('running');
@@ -47,7 +48,21 @@ MrHop.GameState = {
     this.platformPool.add(this.currentPlatform);
     
     //audio
-    this.coinSound = this.add.audio('coin', 0.25, false);
+    this.coinSound = this.add.audio('coin', 0.10, false);
+    
+    //background
+    this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'background');
+    this.background.tileScale.y = 3;
+    this.background.tileScale.x = 3;
+    this.background.autoScroll(-40, 0);
+    this.game.world.sendToBack(this.background);
+    
+    //score text
+    var style2 = {font: '25px Arial', fill: '#fff'};
+		this.scoreText = this.game.add.text(this.game.world.width*0.85, this.game.world.height*0.07, 'Score: ' + this.myCoins, style2);
+
+
+		this.scoreText.anchor.setTo(1);
     
     this.loadLevel();
   },   
@@ -61,7 +76,10 @@ MrHop.GameState = {
         platform.kill();
       }    
     }, this);  
-
+    
+    
+    //update the score.
+    this.refreshScore();
     
     if(this.player.body.touching.down) {
       this.player.body.velocity.x = this.levelSpeed * 0.75;
@@ -71,6 +89,10 @@ MrHop.GameState = {
     }
     
     //inputs
+    if(this.spaceBar.isDown && this.player.top > this.game.world.height){
+      this.restart();
+    }
+    
     if(this.spaceBar.isDown || this.game.input.activePointer.isDown) {
       this.playerJump();
     }
@@ -94,12 +116,13 @@ MrHop.GameState = {
     }
     
     if(this.player.body.y >= this.game.world.height - 60){
-      this.restart();
+      this.updateHighscore();
+      this.gameOver();
     }
     
     //kill coins that leave the screen
       this.coinsPool.forEachAlive(function(coin){
-        if(this.game.physics.arcade.collide(this.player, coin, this.playCoinSound)){
+        if(this.game.physics.arcade.overlap(this.player, coin, this.playCoinSound)){
           coin.kill();
           this.myCoins++;
           console.log(this.myCoins);
@@ -112,9 +135,17 @@ MrHop.GameState = {
       }, this);
   },
   
+  increaseSpeed: function(){
+    this.levelSpeed = this.levelSpeed + 100;
+  },
   playCoinSound: function(coin){
     MrHop.GameState.coinSound.play();
   },
+  
+  refreshScore: function(){
+    this.scoreText.text = 'Score: ' + this.myCoins;
+  },
+  
   
   playerJump: function(){
     if(this.player.body.touching.down) {
@@ -184,8 +215,35 @@ MrHop.GameState = {
       
     return data;
   }, 
+  gameOver: function(){
+    
+    var style1 = {font: '80px Arial', fill: '#fff'};
+		this.gameOverText = this.game.add.text(this.game.world.width*0.5, this.game.world.height*0.35, 'GAME OVER', style1);
+		this.gameOverText.anchor.setTo(0.5);
+		var style2 = {font: '40px Arial', fill: '#fff'};
+		this.finalScoreText = this.game.add.text(this.game.world.width*0.5, this.game.world.height*0.5, 'Score: ' + this.myCoins, style2);
+		this.finalScoreText.anchor.setTo(0.5);
+		this.highScoreText = this.game.add.text(this.game.world.width*0.5, this.game.world.height*0.6, 'Highscore: ' + this.highScore, style2);
+		this.highScoreText.anchor.setTo(0.5);
+		var style3 = {font: '16px Arial', fill: '#fff'};
+		this.tryAgain = this.game.add.text(this.game.world.width*0.5, this.game.world.height*0.8, 'Press Space to try again', style3);
+		this.tryAgain.anchor.setTo(0.5);
+  },
   restart: function(){
+    this.game.world.remove(this.background);
+    this.game.world.remove(this.water);
     this.game.state.start('Game');
+  },
+  updateHighscore: function(){
+    this.highScore = +localStorage.getItem('highScore');
+    
+    
+    if(this.highScore < this.myCoins){
+      this.highScore = this.myCoins;
+      localStorage.setItem('highScore', this.highScore);
+      
+    }
+    
   }
   
   /*render: function() {

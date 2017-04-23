@@ -1,9 +1,7 @@
-
-
-var CloneRunner = CloneRunner || {};
+var MrHop = MrHop || {};
 
 //loading the game assets
-CloneRunner.PreloadState = {
+MrHop.PreloadState = {
   preload: function() {
     //show loading screen
     this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloadbar');

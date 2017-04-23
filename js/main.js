@@ -1,11 +1,11 @@
+var MrHop = MrHop || {};
+
+MrHop.game = new Phaser.Game(600, 480, Phaser.CANVAS);
 
 
-var CloneRunner = CloneRunner || {};
 
-CloneRunner.game = new Phaser.Game(1600, 900, Phaser.AUTO);
+MrHop.game.state.add('Boot', MrHop.BootState);
+MrHop.game.state.add('Preload', MrHop.PreloadState);
+MrHop.game.state.add('Game', MrHop.GameState);
 
-CloneRunner.game.state.add('Boot', CloneRunner.BootState);
-CloneRunner.game.state.add('Preload', CloneRunner.PreloadState);
-CloneRunner.game.state.add('Game', CloneRunner.GameState);
-
-CloneRunner.game.state.start('Boot');
+MrHop.game.state.start('Boot');

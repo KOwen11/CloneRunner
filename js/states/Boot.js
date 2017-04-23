@@ -1,14 +1,10 @@
-
-
-var CloneRunner = CloneRunner || {};
+var MrHop = MrHop || {};
 
 //setting game configuration and loading the assets for the loading screen
-CloneRunner.BootState = {
+MrHop.BootState = {
   init: function() {
     //loading screen will have a white background
     this.game.stage.backgroundColor = '#fff';  
-    
-    
     
     //scaling options
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -26,7 +22,5 @@ CloneRunner.BootState = {
   },
   create: function() {
     this.state.start('Preload');
-  },
-  
-
+  }
 };

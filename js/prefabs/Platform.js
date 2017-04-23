@@ -25,7 +25,7 @@ CloneRunner.Platform.prototype.prepare = function(numTiles, x, y, speed){
   
   var i = 0;
   while(i < numTiles){
-    console.log('tile');
+    
     var floorTile = this.floorPool.getFirstExists(false);
     
     if(!floorTile){
@@ -46,4 +46,19 @@ CloneRunner.Platform.prototype.prepare = function(numTiles, x, y, speed){
   this.setAll('body.velocity.x', speed);
   
   
+};
+
+CloneRunner.Platform.prototype.kill = function(){
+  this.alive = false;
+  
+  this.callAll('kill');
+  var sprites = [];
+  
+  this.forEach(function(tile){
+    sprites.push(tile);
+  },this);
+  
+  this.forEach(function(tile){
+    this.floorPool.add(tile);
+  },this);
 };

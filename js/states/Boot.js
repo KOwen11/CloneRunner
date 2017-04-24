@@ -7,7 +7,7 @@ MrHop.BootState = {
     this.load.image('preloadbar', 'assets/images/preloader-bar.png');
     this.load.image('background', 'assets/images/background.png');
 
-    console.log('boot start');
+    
     this.game.stage.backgroundColor = '#fff';  
     
     //scaling options
@@ -25,6 +25,6 @@ MrHop.BootState = {
   },
   create: function(){
     this.state.start('Preload');
-    console.log('boot exit');
+   
   }
 };

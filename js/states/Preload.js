@@ -3,7 +3,7 @@ var MrHop = MrHop || {};
 //loading the game assets
 MrHop.PreloadState = {
   preload: function() {
-    console.log('preload start');
+    
     //show loading screen
     
     this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'preloadbar');
@@ -25,6 +25,6 @@ MrHop.PreloadState = {
   },
   create: function(){
     this.state.start('Home');
-    console.log('preload exit');
+   
   }
 };

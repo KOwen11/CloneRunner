@@ -38,7 +38,14 @@ MrHop.GameState = {
     this.player.anchor.setTo(0.5);
     this.player.animations.add('running', [0, 1, 2, 3, 2, 1], 15, true);
     this.game.physics.arcade.enable(this.player);
-    //this.gameTimer = this.game.time.events.loop(Phaser.Timer.SECOND * 1, this.increaseSpeed, this);
+    
+    
+    var style5 = {font: '30px Arial', fill: '#fff'};
+		this.speedUpText = this.game.add.text(this.game.world.width*0.5, this.game.world.height*0.1, '', style5);
+		this.speedUpText.anchor.setTo(0.5);
+    this.gameTimer = this.game.time.events.loop(Phaser.Timer.SECOND * 10, this.increaseSpeed, this);
+    this.removeSpeedUpText = this.game.time.events.loop(Phaser.Timer.SECOND*2, this.clearSpeedUpText, this);
+    
     //change player bounding box
     this.player.body.setSize(38, 60, 0, 0);
     this.player.play('running');
@@ -110,9 +117,10 @@ MrHop.GameState = {
     } 
     
     
-    
-    if(this.currentPlatform.length && this.currentPlatform.children[this.currentPlatform.length-1].right < this.game.world.width) {
-      this.createPlatform();
+    if(this.player.body.y < this.game.world.height){
+      if(this.currentPlatform.length && this.currentPlatform.children[this.currentPlatform.length-1].right < this.game.world.width) {
+        this.createPlatform();
+      } 
     }
     
     if(this.player.body.y >= this.game.world.height - 60){
@@ -120,23 +128,31 @@ MrHop.GameState = {
       this.gameOver();
     }
     
+    
+    
     //kill coins that leave the screen
       this.coinsPool.forEachAlive(function(coin){
         if(this.game.physics.arcade.overlap(this.player, coin, this.playCoinSound)){
           coin.kill();
           this.myCoins++;
-          console.log(this.myCoins);
+         
         }
         
         if(coin.right <= 0) {
           coin.kill();
-          console.log('recycled coin');
+
         }
       }, this);
   },
   
   increaseSpeed: function(){
-    this.levelSpeed = this.levelSpeed + 100;
+    this.levelSpeed = this.levelSpeed + 25;
+    this.speedUpText.setText('Speeding Up!');
+		
+  },
+  
+  clearSpeedUpText: function(){
+    this.speedUpText.setText('');
   },
   playCoinSound: function(coin){
     MrHop.GameState.coinSound.play();
@@ -206,7 +222,7 @@ MrHop.GameState = {
     
     data.y = this.currentPlatform.children[0].y + minDifY + Math.random() * (maxDifY - minDifY);
     data.y = Math.max(150, data.y);
-    data.y = Math.min(this.game.world.height - 100, data.y);
+    data.y = Math.min(this.game.world.height - 60, data.y);
         
     //number of tiles
     var minTiles = 1;

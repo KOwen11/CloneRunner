@@ -3,7 +3,7 @@ var MrHop = MrHop || {};
 //loading the game assets
 MrHop.HomeState = {
     init: function(){
-        console.log('home');
+        
         this.game.world.setBounds(0,0,600,480);
         this.levelSpeed = 100;
         this.floorPool = this.add.group();
@@ -36,7 +36,7 @@ MrHop.HomeState = {
         
         var i = 0;
         while(i < 3){
-            console.log('platform');
+           
         this.currentPlatform = new MrHop.Platform(this.game, this.floorPool, this.numTiles(), this.randomLocationX(i), this.randomLocationY(), 0, this.coinsPool);
         this.platformPool.add(this.currentPlatform);
         i = i + 1;
@@ -59,12 +59,12 @@ MrHop.HomeState = {
     
   },
   numTiles: function(){
-    console.log('break1----------');
+   
     var num = this.getRandomInt(2,5);
     return num;
   },
   randomLocationX: function(index){
-      console.log('break2---------');
+     
       var indexA = 0;
       
       if(index == 0){
@@ -79,7 +79,7 @@ MrHop.HomeState = {
   },
   
   randomLocationY: function(){
-    console.log('break3-------------');
+    
     var y = 0;
     var min = this.game.world.height * 0.9;
     var max = this.game.world.height * 0.4;
@@ -94,7 +94,7 @@ MrHop.HomeState = {
   },
   
   start: function() {
-    console.log('home end');
+    
     this.state.start('Game');
   },
 };

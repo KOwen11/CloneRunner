@@ -40,7 +40,7 @@ MrHop.GameState = {
     this.game.physics.arcade.enable(this.player);
     
     
-    var style5 = {font: '30px Arial', fill: '#fff'};
+    var style5 = {font: '50px Arial', fill: '#fff'};
 		this.speedUpText = this.game.add.text(this.game.world.width*0.5, this.game.world.height*0.1, '', style5);
 		this.speedUpText.anchor.setTo(0.5);
     this.gameTimer = this.game.time.events.loop(Phaser.Timer.SECOND * 10, this.increaseSpeed, this);
@@ -56,12 +56,14 @@ MrHop.GameState = {
     
     //audio
     this.coinSound = this.add.audio('coin', 0.10, false);
+    this.music = this.add.audio('music', 0.1, true);
+    this.music.play();
     
     //background
     this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'background');
     this.background.tileScale.y = 3;
     this.background.tileScale.x = 3;
-    this.background.autoScroll(-40, 0);
+    this.background.autoScroll(-this.levelSpeed * 0.1, 0);
     this.game.world.sendToBack(this.background);
     
     //score text
@@ -84,6 +86,8 @@ MrHop.GameState = {
       }    
     }, this);  
     
+    //background scroll speed update
+    this.background.autoScroll(-this.levelSpeed * 0.1, 0);
     
     //update the score.
     this.refreshScore();
@@ -116,16 +120,15 @@ MrHop.GameState = {
       this.player.body.velocity.x = this.levelSpeed;
     } 
     
-    
     if(this.player.body.y < this.game.world.height){
       if(this.currentPlatform.length && this.currentPlatform.children[this.currentPlatform.length-1].right < this.game.world.width) {
         this.createPlatform();
       } 
     }
-    
     if(this.player.body.y >= this.game.world.height - 60){
       this.updateHighscore();
       this.gameOver();
+      this.increaseSpeed();
     }
     
     
@@ -146,9 +149,13 @@ MrHop.GameState = {
   },
   
   increaseSpeed: function(){
-    this.levelSpeed = this.levelSpeed + 25;
-    this.speedUpText.setText('Speeding Up!');
-		
+    if(this.player.body.y < this.game.world.height){
+      this.levelSpeed = this.levelSpeed + 25;
+      this.speedUpText.setText('Speeding Up!');
+    }else{
+      this.levelSpeed = 0;
+      
+    }
   },
   
   clearSpeedUpText: function(){
@@ -246,6 +253,7 @@ MrHop.GameState = {
 		this.tryAgain.anchor.setTo(0.5);
   },
   restart: function(){
+    this.music.pause();
     this.game.world.remove(this.background);
     this.game.world.remove(this.water);
     this.game.state.start('Game');

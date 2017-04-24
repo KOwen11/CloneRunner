@@ -27,7 +27,7 @@ MrHop.HomeState = {
         this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'background');
         this.background.tileScale.y = 3;
         this.background.tileScale.x = 3;
-        this.background.autoScroll(-40, 0);
+        this.background.autoScroll(-30, 0);
         this.game.world.sendToBack(this.background);
         
         

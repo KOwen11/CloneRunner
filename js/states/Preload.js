@@ -21,6 +21,7 @@ MrHop.PreloadState = {
     
     this.load.spritesheet('player', 'assets/images/player_spritesheet.png', 51, 67, 5, 2, 3);
     this.load.audio('coin', ['assets/audio/coin.mp3', 'assets/audio/coin.ogg']);
+    this.load.audio('music', ['assets/audio/CoinGameSong.mp3','assets/audio/CoinGameSong.ogg'])
 
   },
   create: function(){

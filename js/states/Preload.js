@@ -1,7 +1,7 @@
-var MrHop = MrHop || {};
+var CloneRunner = CloneRunner || {};
 
 //loading the game assets
-MrHop.PreloadState = {
+CloneRunner.PreloadState = {
   preload: function() {
     
     //show loading screen

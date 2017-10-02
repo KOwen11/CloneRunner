@@ -1,6 +1,6 @@
-var MrHop = MrHop || {};
+var CloneRunner = CloneRunner || {};
 
-MrHop.Platform = function(game, floorPool, numTiles, x, y, speed, coinsPool) {
+CloneRunner.Platform = function(game, floorPool, numTiles, x, y, speed, coinsPool) {
   Phaser.Group.call(this, game);
   
   this.tileSize = 40;
@@ -12,10 +12,10 @@ MrHop.Platform = function(game, floorPool, numTiles, x, y, speed, coinsPool) {
   this.prepare(numTiles, x, y, speed);  
 };
 
-MrHop.Platform.prototype = Object.create(Phaser.Group.prototype);
-MrHop.Platform.prototype.constructor = MrHop.Platform;
+CloneRunner.Platform.prototype = Object.create(Phaser.Group.prototype);
+CloneRunner.Platform.prototype.constructor = CloneRunner.Platform;
 
-MrHop.Platform.prototype.prepare = function(numTiles, x, y, speed) {
+CloneRunner.Platform.prototype.prepare = function(numTiles, x, y, speed) {
   
   //make alive
   this.alive = true;  
@@ -45,7 +45,7 @@ MrHop.Platform.prototype.prepare = function(numTiles, x, y, speed) {
   
 };
 
-MrHop.Platform.prototype.kill = function(){
+CloneRunner.Platform.prototype.kill = function(){
   this.alive = false;  
   this.callAll('kill');
   
@@ -59,7 +59,7 @@ MrHop.Platform.prototype.kill = function(){
   }, this);
 };
 
-MrHop.Platform.prototype.addCoins = function(speed){
+CloneRunner.Platform.prototype.addCoins = function(speed){
   var coinsY = 110;
   
   var hasCoin;

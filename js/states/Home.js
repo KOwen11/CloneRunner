@@ -1,7 +1,7 @@
-var MrHop = MrHop || {};
+var CloneRunner = CloneRunner || {};
 
 //loading the game assets
-MrHop.HomeState = {
+CloneRunner.HomeState = {
     init: function(){
         
         this.game.world.setBounds(0,0,600,480);
@@ -37,7 +37,7 @@ MrHop.HomeState = {
         var i = 0;
         while(i < 3){
            
-        this.currentPlatform = new MrHop.Platform(this.game, this.floorPool, this.numTiles(), this.randomLocationX(i), this.randomLocationY(), 0, this.coinsPool);
+        this.currentPlatform = new CloneRunner.Platform(this.game, this.floorPool, this.numTiles(), this.randomLocationX(i), this.randomLocationY(), 0, this.coinsPool);
         this.platformPool.add(this.currentPlatform);
         i = i + 1;
         

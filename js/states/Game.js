@@ -1,6 +1,6 @@
-var MrHop = MrHop || {};
+var CloneRunner = CloneRunner || {};
 
-MrHop.GameState = {
+CloneRunner.GameState = {
 
   init: function() {
     
@@ -51,7 +51,7 @@ MrHop.GameState = {
     this.player.play('running');
     
     //hard-code first platform
-    this.currentPlatform = new MrHop.Platform(this.game, this.floorPool, 22, 0, this.game.world.height * 0.85, -this.levelSpeed, this.coinsPool);
+    this.currentPlatform = new CloneRunner.Platform(this.game, this.floorPool, 22, 0, this.game.world.height * 0.85, -this.levelSpeed, this.coinsPool);
     this.platformPool.add(this.currentPlatform);
     
     //audio
@@ -162,7 +162,7 @@ MrHop.GameState = {
     this.speedUpText.setText('');
   },
   playCoinSound: function(coin){
-    MrHop.GameState.coinSound.play();
+    CloneRunner.GameState.coinSound.play();
   },
   
   refreshScore: function(){
@@ -204,7 +204,7 @@ MrHop.GameState = {
       this.currentPlatform = this.platformPool.getFirstDead();
       
       if(!this.currentPlatform) {
-        this.currentPlatform = new MrHop.Platform(this.game, this.floorPool, nextPlatformData.numTiles, this.game.world.width + nextPlatformData.separation, nextPlatformData.y, -this.levelSpeed, this.coinsPool);   
+        this.currentPlatform = new CloneRunner.Platform(this.game, this.floorPool, nextPlatformData.numTiles, this.game.world.width + nextPlatformData.separation, nextPlatformData.y, -this.levelSpeed, this.coinsPool);   
       }
       else {
         this.currentPlatform.prepare(nextPlatformData.numTiles, this.game.world.width + nextPlatformData.separation, nextPlatformData.y, -this.levelSpeed);   

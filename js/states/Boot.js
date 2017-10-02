@@ -1,7 +1,7 @@
-var MrHop = MrHop || {};
+var CloneRunner = CloneRunner || {};
 
 //setting game configuration and loading the assets for the loading screen
-MrHop.BootState = {
+CloneRunner.BootState = {
   preload: function() {
     //loading screen will have a white background
     this.load.image('preloadbar', 'assets/images/preloader-bar.png');
